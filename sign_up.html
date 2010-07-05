@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <title>Sign up to play 4X</title>
+</head>
+<body>
+	<h2>Sign up to play 4x</h2>
+	{% if not user %}
+		<p>To play 4X you need to set up a nickname and associate it with a Google account. You may have a Google account already if you use GMail or other Google services. You'll use the email account associated with your Google account to log in. Your Google account's email address will never by shared with anyone.</p>
+		<p>Please <a href="{{ login_url }}">sign in to your account</a> so we can associate your Google account with your game information.</p>
+	{% else %}
+		{% if not duplicate_user %}
+			<p>You are signed in as: {{ user.email }}</p>
+			{% if not duplicate_nickname %}
+				<p>Please choose the Nickname you will use while playing. This will be how you will be identified to other players on the site.</p>
+			{% else %}
+				<p>I'm sorry, the nickname you requested, {{ nickname }} has already been taken by another user. Please chose another Nickname.</p>
+			{% endif %}
+			<form method="post">
+				<p><b>Nickname:</b> <input type="text" name="nickname" /></p>
+				<p><input type="submit" value="Submit" /></p>
+			</form>
+		{% else %}
+			<p>You already have a user ID under your Google account, with the nickname "{{ duplicate_user.nickname }}". If you wish to change your Nickname, please contact the webmaster. Otherwise, you can <a href="/">go back to the main page</a>.</p>
+		{% endif %}
+	{% endif %}
+</body>
+</html>

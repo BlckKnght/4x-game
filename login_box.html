@@ -1,0 +1,9 @@
+<div id="login_box">
+	{% if not player %}
+		You are not logged in.<br />
+		<a href="{{ login_url }}">Log In</a> or <a href="sign_up">Sign Up</a>.
+	{% else %}
+		You are logged in as {{ player.nickname }}.<br />
+		<a href="{{ logout_url }}">Log Out</a>.
+	{% endif %}
+</div>
