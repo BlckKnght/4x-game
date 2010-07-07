@@ -9,21 +9,16 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
 
+import home
 import player_management
 
-class MainHandler(webapp.RequestHandler):
-    path = os.path.join(os.path.dirname(__file__), "main.html")
-    def get(self):
-        params = { "content" : "Nothing here yet!" }
-        params.update(player_management.login_box_parameters())
-        self.response.out.write(template.render(self.path, params))
-
 def main():
-    application = webapp.WSGIApplication([('/', MainHandler),
-                                          ('/sign_up',
-                                           player_management.SignUpHandler),
-                                          ('/validate_login',
-                                           player_management.ValidateLogin)],
+    handlers = [('/', home.HomeHandler),
+                ('/index.html', home.HomeHandler),
+                ('/home', home.HomeHandler),
+                ('/sign_up', player_management.SignUpHandler),
+                ('/validate_login', player_management.ValidateLoginHandler)]
+    application = webapp.WSGIApplication(handlers,
                                          debug=True)
     util.run_wsgi_app(application)
 

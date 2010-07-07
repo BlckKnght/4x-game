@@ -13,6 +13,29 @@ def get_current_player():
     return player
 
 
+def signup_required(func):
+    """Return a wrapper function that checks that the user has a nickname.
+
+    This function should be used as a decorator on "get" request handler
+    methods, like this:
+
+    @signup_required
+    def get(self):
+        ...
+    """
+    def get(self):
+        user = users.get_current_user()
+        player = model.Player.all().filter("user =", user).get()
+        if player:
+            return func(self)
+        else:
+            params = { "login_url" : users.create_login_url(self.request.url),
+                       "user" : user }
+            self.response.out.write(template.render("signup_required.html",
+                                                    params))
+    return get
+
+
 def login_box_parameters():
     player = get_current_player()
     login_url = users.create_login_url("/validate_login")
@@ -23,22 +46,13 @@ def login_box_parameters():
              "logout_url" : logout_url }
 
 
-class ValidateLogin(webapp.RequestHandler):
-    template = os.path.join(os.path.dirname(__file__), "validate_login.html")
-    
+class ValidateLoginHandler(webapp.RequestHandler):
+    @signup_required
     def get(self):
-        user = users.get_current_user()
-        player = model.Player.all().filter("user =", user).get()
-        
-        if player:
-            self.redirect("/")
-
-        self.response.out.write(template.render(self.template, {"user" : user}))
+        self.redirect("/")
 
 
 class SignUpHandler(webapp.RequestHandler):
-    template = os.path.join(os.path.dirname(__file__), "sign_up.html")
-    
     def get(self):
         user = users.get_current_user()
         parameters = { "login_url" : users.create_login_url(self.request.url),
@@ -48,7 +62,7 @@ class SignUpHandler(webapp.RequestHandler):
             dup_user = model.Player.all().filter("user =", user).get()
             parameters["duplicate_user"] = dup_user
 
-        self.response.out.write(template.render(self.template, parameters))
+        self.response.out.write(template.render("sign_up.html", parameters))
 
     def post(self):
         user = users.get_current_user()
@@ -65,7 +79,7 @@ class SignUpHandler(webapp.RequestHandler):
                            "nickname" : nickname,
                            "duplicate_user" : dup_user,
                            "duplicate_nickname" : dup_nickname }
-            self.response.out.write(template.render(self.template, parameters))
+            self.response.out.write(template.render("sign_up.html", parameters))
         else:
             player = model.Player(nickname = nickname, user = user)
             player.put()

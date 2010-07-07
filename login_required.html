@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <title>Please {% if not user %}Login or {% endif %}Sign Up</title>
+</head>
+<body>
+	{% if user %}
+		<p>You are logged in with your email, {{ user.email }}, but you don't have a nickname yet for 4X. You must <a href="/sign_up">sign up</a> to create your nickname before you can play.</p>
+	{% else %}
+		<p>You are not logged in yet! Before you can play 4X, you must be signed in to a Google Account and have a nickname. Please <a href="{{ login_url }}">log in</a> to your Google Account. If you haven't set up an account, please <a href="/sign_up">sign up</a> instead.</p>
+	{% endif %}
+</body>
+</html>
