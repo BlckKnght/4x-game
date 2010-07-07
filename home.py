@@ -8,7 +8,7 @@ import player_management
 
 class HomeHandler(webapp.RequestHandler):
     def get(self):
-        params = { "content" : "Nothing here yet!" }
-        params.update(player_management.login_box_parameters())
+        params = { "header" : player_management.login_box(),
+                   "content" : "Nothing here yet!" }
         self.response.out.write(template.render("home.html", params))
 

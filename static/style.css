@@ -1,0 +1,4 @@
+body { background-color: grey; }
+#header { border: 1px solid black; height: 100px; background-color: white; }
+#login_box { vertical-align: middle; border-left: 1px solid black; float: right; width: 150px; height: inherit; }
+#content { clear: both; }
