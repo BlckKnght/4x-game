@@ -6,37 +6,45 @@
     <title>Play 4X</title>
 </head>
 <body>
-	{% block header %}
-	<div id="header">
-		{% block topbox %}
-		<div id="topbox">
-			<div id="logobox">
+	<div id="container">
+		{% block header %}
+		<div id="header">
+			{% block loginbox %}
+			<div id="loginbox">
+				{% if not player %}
+					<div>You are not logged in.</div>
+					<div><a href="{{ login_url }}">Log In</a> or <a href="/sign_up">Sign Up</a></div>
+				{% else %}
+					<div>You are logged in as <span class="username">{{ player.nickname }}</span>.</div>
+					<div><a href="{{ logout_url }}">Log Out</a></div>
+				{% endif %}
+			</div>
+			{% endblock loginbox %}
+			{% block topbox %}
+			<div id="topbox">
 				<div id="title">4X</div>
 				<div id="subtitle">A Game of Interstellar Conquest</div>
 			</div>
-			{% block navbar %}
-			<div id="navbar">
-				<div id="home" class="navitem{% ifequal {{ location }} 'home' %} active{% endif %}"><a href="/">Home</a></div>
-				<div id="games" class="navitem{% ifequal {{ location }} 'games' %} active{% endif %}"><a href="/games">Games</a></div>
-			</div>
-			{% endblock navbar %}
+			{% endblock topbox %}
+			
 		</div>
-		{% endblock topbox %}
-		{% block loginbox %}
-		<div id="loginbox">
-			{% if not player %}
-				<div>You are not logged in.</div>
-				<div><a href="{{ login_url }}">Log In</a> or <a href="/sign_up">Sign Up</a>.</div>
-			{% else %}
-				<div>You are logged in as <span class="username">{{ player.nickname }}</span>.</div>
-				<div><a href="{{ logout_url }}">Log Out</a>.</div>
-			{% endif %}
+		{% endblock header %}
+		{% block navbar %}
+		<div id="navbar">
+			<div id="home" class="navitem{% ifequal location 'home' %} active{% endifequal %}"><a href="/">Home</a></div>
+			<div id="games" class="navitem{% ifequal location 'games' %} active{% endifequal %}"><a href="/games">Games</a></div>
 		</div>
-		{% endblock loginbox %}
+		{% endblock navbar %}
+		{% block main %}
+		<div id="main">
+			Main content goes here
+		</div>
+		{% endblock main %}
+		{% block footer %}
+		<div id="footer">
+			Footer
+		</div>
+		{% endblock footer %}
 	</div>
-	{% endblock header %}
-	{% block content %}
-		{{ content }}
-	{% endblock content %}
 </body>
 </html>

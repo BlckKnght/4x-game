@@ -11,13 +11,15 @@ from google.appengine.ext.webapp import template
 
 import home
 import player_management
+import base
 
 def main():
     handlers = [('/', home.HomeHandler),
                 ('/index.html', home.HomeHandler),
                 ('/home', home.HomeHandler),
                 ('/sign_up', player_management.SignUpHandler),
-                ('/validate_login', player_management.ValidateLoginHandler)]
+                ('/validate_login', player_management.ValidateLoginHandler),
+                ('/base', base.BaseHandler)]
     application = webapp.WSGIApplication(handlers,
                                          debug=True)
     util.run_wsgi_app(application)

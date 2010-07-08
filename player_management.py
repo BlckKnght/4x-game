@@ -1,17 +1,11 @@
 # player_management.py
 
-import os
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
 import model
-
-def get_current_player():
-    user = users.get_current_user()
-    player = model.Player.all().filter("user =", user).get()
-    return player
-
+import base
 
 def player_required(func):
     """Return a wrapper function that checks that the user has a nickname.
@@ -37,16 +31,14 @@ def player_required(func):
 
 
 def login_box():
-    path = "login_box.html" #os.path.join(os.path.dirname(__file__), "login_box.html")
-
-    player = get_current_player()
+    player = base.get_current_player()
     login_url = users.create_login_url("/validate_login")
     logout_url = users.create_logout_url("/")
     params = { "player" : player,
                "login_url" : login_url,
                "logout_url" : logout_url }
 
-    return template.render(path, params)
+    return template.render("login_box.html", params)
 
 
 class ValidateLoginHandler(webapp.RequestHandler):
