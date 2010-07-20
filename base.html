@@ -10,39 +10,45 @@
 		{% block header %}
 		<div id="header">
 			{% block loginbox %}
-			<div id="loginbox">
+			<div id="loginbox" class="contentbox sidecolumn">
 				{% if not player %}
-					<div>You are not logged in.</div>
-					<div><a href="{{ login_url }}">Log In</a> or <a href="/sign_up">Sign Up</a></div>
+					<div>Not logged in.</div>
+					<div><a href="{{ login_url }}">Log In</a></div>
+					<div><a href="/sign_up">Sign Up</a></div>
 				{% else %}
-					<div>You are logged in as <span class="username">{{ player.nickname }}</span>.</div>
+					<div>Logged in as:</div>
+					<div class="username">{{ player.nickname }}</div>
 					<div><a href="{{ logout_url }}">Log Out</a></div>
 				{% endif %}
 			</div>
 			{% endblock loginbox %}
 			{% block topbox %}
-			<div id="topbox">
-				<div id="title">4X</div>
-				<div id="subtitle">A Game of Interstellar Conquest</div>
+			<div id="topbox" class="contentbox maincolumn">
+				<h1 id="title">4X</h1>
+				<h2 id="subtitle">A Game of Interstellar Conquest</h2>
 			</div>
 			{% endblock topbox %}
-			
 		</div>
 		{% endblock header %}
 		{% block navbar %}
 		<div id="navbar">
-			<div id="home" class="navitem{% ifequal location 'home' %} active{% endifequal %}"><a href="/">Home</a></div>
-			<div id="games" class="navitem{% ifequal location 'games' %} active{% endifequal %}"><a href="/games">Games</a></div>
+			<div id="navitems" class="contentbox">
+				<a href="/" class="navitem{% ifequal location 'home' %} active{% endifequal %}">Home</a><a href="/games" class="navitem{% ifequal location 'games' %} active{% endifequal %}">Games</a>
+			</div>
 		</div>
 		{% endblock navbar %}
 		{% block main %}
 		<div id="main">
-			Main content goes here
+			<div id="maincontent" class="contentbox">
+				Main content goes here
+			</div>
 		</div>
 		{% endblock main %}
 		{% block footer %}
 		<div id="footer">
-			Footer
+			<div id="copyright" class="contentbox">
+				4X &copy; 2010 Black Knight Games. All rights reserved.
+			</div>
 		</div>
 		{% endblock footer %}
 	</div>

@@ -4,57 +4,60 @@ a:link, a:visited {
 }
 a:hover {
 	text-decoration: none;
-	color: #0f0;
+	color: #00ff00;
 }
 body {
+	font-family: fixedsys, courier, monospace;
+    font size: 12px;
     background-color: #00cc00;
 	margin: 0px;
 }
 #container {
-	margin: 5px;
+	border: 3px solid #00cc00;
 }
-#header {
+.contentbox {
 	background-color: black;
 	color: #00cc00;
-	margin: 0px;
+	border: 1px solid #00cc00;
 }
-#loginbox {
+.maincolumn {
+	margin-right: 202px;
+}
+.sidecolumn {
 	float: right;
 	width: 200px;
-	height: 50px;
-	margin: 25px 10px;
 }
-#topbox {
-	margin: 0px;
-	padding: 0px;
+#loginbox {
+	line-height: 20px;
+	padding: 20px 0px;
+}
+#loginbox > div {
+    margin-left: 10px;
+}
+.username {
+    font-weight: bold;
 }
 #title {
 	font-size: 80px;
 	line-height: 100px;
-	margin-left: 10px;
+	margin-left: 25px;
 	display: inline;
 }
 #subtitle {
-	font-size: 30px;
-	margin-left: 10px;
+	font-size: 40px;
+	margin-left: 25px;
 	display: inline;
 }
-#navbar {
-	background-color: black;
-	color: #0f0;
-	margin-top: 2px;
+.navitem {
+	display: inline-block;
+    line-height: 20px;
+    padding: 10px 25px;
+    border-right: 1px solid #00cc00;
 }
-#navbar div {
-	display: inline;
-	margin: 25px 25px;
+#maincontent {
+    padding: 10px;
+	min-height: 600px;
 }
-#main {
-	background-color: black;
-	color: #00cc00;
-	margin-top: 2px;
-}
-#footer {
-	background-color: black;
-	color: #00cc00;
-	margin-top: 2px;
+#copyright {
+    padding: 10px;
 }
